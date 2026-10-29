@@ -5,10 +5,24 @@ export async function apiGet(path, { revalidate = 300 } = {}) {
   }
 
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-  const res = await fetch(`${baseUrl.replace(/\/+$/, "")}${normalizedPath}`, {
-    headers: { Accept: "application/json" },
-    next: { revalidate },
-  });
-  if (!res.ok) throw new Error(`API error ${res.status} for ${path}`);
-  return res.json();
+
+  // Create a 5-second timeout to prevent serverless hanging
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+  try {
+    const res = await fetch(`${baseUrl.replace(/\/+$/, "")}${normalizedPath}`, {
+      headers: { Accept: "application/json" },
+      next: { revalidate },
+      signal: controller.signal,
+    });
+
+    clearTimeout(timeoutId);
+
+    if (!res.ok) throw new Error(`API error ${res.status} for ${path}`);
+    return res.json();
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error; // This safely drops into getSiteInfo's catch block and serves fallbackSite
+  }
 }
