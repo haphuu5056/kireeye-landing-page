@@ -1,26 +1,126 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-brand-violet: var(--brand-violet);
+  --color-soft-lavender: var(--soft-lavender);
+  --color-deep-plum: var(--deep-plum);
+  --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-contrast-ink: var(--contrast-ink);
+  --color-apartment-peach: var(--apartment-peach);
+  --color-mint: var(--mint);
+  --color-sky-blue: var(--sky-blue);
+  --color-butter-cream: var(--butter-cream);
+  --color-star-gold: var(--star-gold);
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-plus-jakarta-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --brand-violet: oklch(0.48 0.22 292);
+  --soft-lavender: oklch(90.567% 0.049 300.991);
+  --deep-plum: oklch(0.28 0.14 290);
+  --canvas: oklch(0.985 0.005 300);
+  --card-surface: #ffffff;
+  --ink: oklch(0.2 0.02 290);
+  --muted-text: oklch(0.5 0.02 290);
+  --divider: oklch(0.92 0.012 300);
+  --contrast-ink: oklch(0.18 0.02 290);
+  --apartment-peach: oklch(0.92 0.06 50);
+  --mint: oklch(0.93 0.06 165);
+  --sky-blue: oklch(0.92 0.05 240);
+  --butter-cream: oklch(0.95 0.07 95);
+  --star-gold: oklch(0.8 0.16 75);
+
+  --background: var(--canvas);
+  --foreground: var(--ink);
+  --muted: var(--divider);
+  --muted-foreground: var(--muted-text);
+  --card: var(--card-surface);
+  --border: var(--divider);
+  --primary: var(--brand-violet);
+  --primary-foreground: #ffffff;
+  --secondary: var(--deep-plum);
+}
+
+.dark {
+  --background: oklch(0.24 0.08 290);
+  --foreground: oklch(0.96 0.02 300);
+  --muted: oklch(0.32 0.06 290);
+  --muted-foreground: oklch(0.76 0.03 290);
+  --card: oklch(0.31 0.08 290);
+  --border: oklch(0.4 0.08 290);
+  --primary: oklch(0.56 0.22 292);
+  --primary-foreground: #faf5ff;
+  --secondary: oklch(0.24 0.08 286);
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  font-size: .9rem;
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif;
+  font-weight: 600;
+}
+
+.display-heading {
+  max-width: 22ch;
+  margin-inline: auto;
+  font-family: var(--font-plus-jakarta-sans), ui-sans-serif, system-ui, sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+  text-align: center;
+  text-wrap: balance;
+}
+
+#hero-heading {
+  margin-inline: 0;
+  text-align: left;
+
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
