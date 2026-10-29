@@ -5,7 +5,7 @@ import { IconBadge } from "@/components/ui/IconBadge";
 import SectionHeader from "@/components/ui/SectionHeader";
 const avatarColors = ["bg-apartment-peach", "bg-sky-blue", "bg-mint"];
 export function SocialProof({ title, items }) {
-  console.log(items);
+  // console.log(items);
 
     return (<section id="social-proof" className="scroll-mt-24 bg-background px-4 py-16 sm:px-6 lg:py-24">
       <div className="mx-auto max-w-7xl">
